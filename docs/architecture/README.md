@@ -1,43 +1,87 @@
-# Documentação de Arquitetura
+# Arquitetura do PhotoHub
 
-## Objetivo
+## 1. Direção arquitetural
 
-Registrar a estrutura técnica do PhotoHub, suas fronteiras, integrações, decisões e requisitos de qualidade.
+A direção inicial é um **monólito modular com API compartilhada e aplicações frontend separadas**. Essa escolha mantém o custo operacional compatível com um projeto conduzido por uma pessoa desenvolvedora, sem abandonar separação de responsabilidades.
 
-A arquitetura ainda não foi definida. Este diretório começa com princípios e critérios para orientar as decisões futuras, sem apresentar tecnologias como se já estivessem aprovadas.
+Stack definida:
+- React + TypeScript + Vite + Tailwind CSS;
+- Python + FastAPI;
+- PostgreSQL;
+- SQLAlchemy 2 + Alembic;
+- Pytest;
+- Docker Compose para ambiente local;
+- GitHub Actions para CI.
 
-## Princípios arquiteturais
+As escolhas serão formalizadas em ADRs conforme a implementação começar.
 
-1. **Domínio antes da tecnologia:** compreender processos e regras antes de escolher frameworks e infraestrutura.
-2. **Separação de responsabilidades:** interface, aplicação, domínio e infraestrutura devem possuir responsabilidades claras.
-3. **API como contrato:** interfaces externas devem ser consistentes, documentadas e versionadas quando necessário.
-4. **Segurança desde o início:** autenticação, autorização, proteção de dados e gestão de segredos fazem parte do desenho.
-5. **Testabilidade:** regras importantes devem poder ser verificadas sem depender de toda a infraestrutura.
-6. **Integrações resilientes:** falhas de serviços externos devem ser previstas e observáveis.
-7. **Evolução incremental:** evitar complexidade distribuída antes de existir necessidade comprovada.
-8. **Documentação próxima do código:** decisões e diagramas devem ser versionados junto ao projeto.
+## 2. Aplicações e fronteiras
 
-## Tópicos que serão documentados
+- **Website:** interface pública, conteúdo comercial, portfólio e captação de leads.
+- **Studio:** interface autenticada para gestão interna.
+- **Client:** interface privada futura para documentos, acompanhamento e galerias.
 
-| Tópico | Situação |
-|---|---|
-| Contexto e fronteiras do sistema | Inicial |
-| Requisitos de qualidade | Candidatos em levantamento |
-| Estilo arquitetural | Não decidido |
-| Organização de módulos | Não decidida |
-| Tecnologias e frameworks | Não decididos |
-| Persistência e banco de dados | Não decididos |
-| Autenticação e autorização | Não decididas |
-| Integrações externas | A levantar |
-| Implantação e infraestrutura | Não decididas |
-| Monitoramento e logs | A especificar |
+As aplicações não devem compartilhar regras de negócio por cópias no frontend. A API é a fronteira de negócio e autorização.
 
-## Critérios para decisões técnicas
+## 3. Organização do backend
 
-Toda decisão relevante deverá considerar aderência aos requisitos, complexidade de implementação e manutenção, segurança, custo operacional, capacidade de testes, documentação e maturidade do ecossistema, facilidade de integração e possibilidade de evolução.
+Organizar o backend por módulos de domínio, mantendo routers, schemas, serviços, persistência e integrações em responsabilidades distintas. Módulos candidatos:
+- identidade e acesso;
+- clientes e contatos;
+- comercial;
+- catálogo de serviços;
+- propostas e contratos;
+- trabalhos e projetos;
+- agenda e equipe;
+- financeiro operacional;
+- produção e entregas;
+- arquivos e integrações;
+- auditoria.
 
-## Registros de decisão
+Não é necessário criar um microserviço por módulo.
 
-Decisões arquiteturais relevantes devem ser registradas em `docs/adr/`, usando o modelo disponível em [template.md](../adr/template.md).
+## 4. Persistência e arquivos
 
-Uma decisão aceita não deve ser reescrita retroativamente quando mudar. Uma nova ADR deve registrar a substituição e apontar para a decisão anterior.
+PostgreSQL será a fonte principal de dados transacionais. SQLAlchemy e Alembic serão utilizados para persistência e migrações.
+
+Arquivos de contratos e mídia não devem ser armazenados como grandes blobs no banco por padrão. O sistema manterá metadados, permissões e referências para armazenamento apropriado. Provedor, política de backup e recuperação deverão ser documentados antes do uso operacional.
+
+## 5. Segurança
+
+- autenticação e autorização no backend;
+- menor privilégio para usuários e integrações;
+- validação de entradas e proteção contra abuso;
+- segredos fora do código e dos logs;
+- proteção de documentos e arquivos privados;
+- trilha de auditoria para ações críticas;
+- backups e restauração testados;
+- revisão de privacidade e LGPD antes do piloto.
+
+## 6. Estratégia RN-first
+
+A primeira implantação atenderá uma operação. O sistema poderá representar marcas/frentes comerciais da RN, mas isso não equivale a multi-tenancy SaaS.
+
+Evitar dependências que dificultem evolução futura, mas não implementar agora isolamento de dados de várias empresas, billing, onboarding SaaS, painel de assinantes ou infraestrutura distribuída.
+
+Uma futura distribuição exigirá avaliação explícita de arquitetura, segurança, custos, suporte e requisitos legais.
+
+## 7. Qualidade e testes
+
+- testes unitários para regras de domínio;
+- testes de integração para persistência e serviços;
+- testes de API para autorização e contratos HTTP;
+- testes de frontend para formulários e fluxos críticos;
+- CI para lint, typecheck e testes;
+- dados de demonstração fictícios e claramente identificados.
+
+## 8. Decisões arquiteturais
+
+Decisões relevantes devem ser registradas em docs/adr/, usando o [template](../adr/template.md). Uma decisão substituída deve permanecer no histórico, com uma nova ADR explicando a mudança.
+
+## 9. Documentos relacionados
+
+- [Visão do Produto](../01-visao-do-produto.md)
+- [Escopo e Requisitos](../02-escopo-e-requisitos.md)
+- [Modelo de Domínio](../03-modelo-de-dominio.md)
+- [Fluxos Operacionais](../04-fluxos-operacionais.md)
+- [Arquitetura do Ecossistema](../05-arquitetura-do-ecossistema.md)
