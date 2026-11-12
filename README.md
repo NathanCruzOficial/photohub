@@ -1,77 +1,98 @@
 # PhotoHub
 
-**PhotoHub** é uma proposta de plataforma de gestão para negócios de fotografia e audiovisual. O objetivo é organizar o fluxo operacional desde o primeiro contato com o cliente até a execução e entrega do serviço.
+**PhotoHub** é um ecossistema de software para negócios de fotografia e audiovisual. Será desenvolvido primeiro para uso real na **RN Foto & Mídia**, com qualidade de engenharia e documentação profissional.
 
-O projeto parte de necessidades observadas em uma operação real de fotografia e audiovisual e será desenvolvido de forma incremental, com foco em requisitos claros, arquitetura sustentável, segurança, testes e integrações.
+A visão contempla três aplicações conectadas por uma API:
+1. **PhotoHub Website** — site público, portfólio e captação de solicitações.
+2. **PhotoHub Studio** — gestão interna de clientes, comercial, contratos, serviços, projetos, agenda, financeiro e produção.
+3. **PhotoHub Client** — área privada para documentos, acompanhamento, seleção e entrega de imagens. Etapa futura.
 
-> **Status:** fase de descoberta e documentação. As funcionalidades, tecnologias e decisões arquiteturais ainda estão em definição.
+> **Status:** descoberta, modelagem e documentação fundacional. Ainda não há funcionalidades de produto implementadas.
 
-## Objetivos
+## Estratégia
 
-- Centralizar clientes, contatos e oportunidades comerciais.
-- Organizar serviços, ensaios, eventos e trabalhos.
-- Acompanhar contratos, pagamentos, produção e entregas.
-- Reduzir tarefas manuais e retrabalho.
-- Disponibilizar uma API documentada para integrações e automações.
-- Manter histórico, controle de acesso e proteção dos dados.
+O PhotoHub será validado inicialmente em uma única operação: RN Foto & Mídia. O objetivo imediato é resolver problemas reais, aproveitar os aprendizados do ERP/site anterior e construir um projeto de portfólio demonstrável.
 
-## Escopo inicial
+A arquitetura deverá evitar bloqueios desnecessários a uma distribuição futura. Isso **não** significa implementar agora uma plataforma SaaS: multi-tenancy completo, planos, cobrança recorrente, onboarding comercial, suporte e operação de clientes externos estão fora do MVP.
 
-| Área | Objetivo |
+## Aplicações
+
+| Aplicação | Responsabilidade | Prioridade |
+|---|---|---|
+| Website | Apresentar a RN, divulgar serviços e receber solicitações | Após o núcleo do Studio |
+| Studio | Controlar a operação interna e os dados do negócio | **Produto principal do MVP** |
+| Client | Expor dados, documentos e galerias autorizadas ao cliente | Futuro |
+
+O Website capta e encaminha leads; o Studio executa os processos internos; o Client oferecerá acesso restrito ao cliente. Nenhuma interface acessará diretamente o banco de dados.
+
+## Escopo do MVP
+
+- Clientes, contatos e histórico.
+- Leads, atendimento, propostas e orçamentos.
+- Catálogo de serviços, pacotes e adicionais.
+- Contratos e documentos.
+- Trabalhos/projetos, tarefas, responsáveis e prazos.
+- Agenda operacional.
+- Controle financeiro básico.
+- Acompanhamento de produção e entrega por status e referências a arquivos externos.
+- Usuários, permissões, histórico e auditoria.
+
+O MVP não pretende substituir contabilidade, editar mídia, hospedar bibliotecas massivas de fotos ou oferecer uma galeria profissional completa.
+
+## Stack definida
+
+| Camada | Tecnologia |
 |---|---|
-| Clientes e contatos | Manter dados e histórico de relacionamento |
-| Comercial | Acompanhar oportunidades, propostas e negociações |
-| Serviços e trabalhos | Organizar serviços contratados e eventos |
-| Agenda e equipe | Planejar datas, responsáveis e compromissos |
-| Documentos | Relacionar contratos e documentos aos trabalhos |
-| Financeiro operacional | Acompanhar valores acordados e pagamentos |
-| Produção e entrega | Controlar etapas, prazos e disponibilização dos materiais |
-| Integrações | Permitir comunicação com ferramentas externas |
+| Frontend | React, TypeScript, Vite e Tailwind CSS |
+| Backend/API | Python e FastAPI |
+| Banco de dados | PostgreSQL |
+| ORM e migrações | SQLAlchemy 2 e Alembic |
+| Testes | Pytest |
+| CI | GitHub Actions |
+| Ambiente local | Docker Compose |
 
-O escopo é preliminar e será validado antes da implementação.
+As escolhas serão registradas em ADRs e poderão ser revistas com justificativa técnica.
 
-## Tecnologias
+## Arquitetura inicial
 
-As tecnologias ainda não foram escolhidas. A seleção será documentada após a análise dos requisitos, restrições operacionais e alternativas técnicas. Não há stack ou infraestrutura declarada como definitiva nesta fase.
+A proposta é um **monólito modular**, com API compartilhada e aplicações frontend separadas no mesmo repositório. Os módulos de domínio devem refletir os processos do negócio, não apenas entidades técnicas. Essa abordagem reduz a complexidade operacional para uma pessoa desenvolvedora e mantém limites claros.
 
 ## Documentação
 
 | Documento | Descrição |
 |---|---|
-| [Visão do Produto](docs/01-visao-do-produto.md) | Problema, público, objetivos e princípios |
-| [Escopo e Requisitos](docs/02-escopo-e-requisitos.md) | Áreas funcionais e requisitos candidatos |
-| [Modelo de Domínio](docs/03-modelo-de-dominio.md) | Conceitos e relacionamentos do negócio |
-| [Arquitetura](docs/architecture/README.md) | Princípios e tópicos de arquitetura |
-| [ADR Template](docs/adr/template.md) | Modelo para registrar decisões arquiteturais |
+| [Visão do Produto](docs/01-visao-do-produto.md) | Estratégia RN-first e visão das três aplicações |
+| [Escopo e Requisitos](docs/02-escopo-e-requisitos.md) | Módulos, prioridades e critérios do MVP |
+| [Modelo de Domínio](docs/03-modelo-de-dominio.md) | Conceitos e relacionamentos |
+| [Fluxos Operacionais](docs/04-fluxos-operacionais.md) | Jornada de atendimento, contratação e entrega |
+| [Arquitetura do Ecossistema](docs/05-arquitetura-do-ecossistema.md) | Aplicações, API e fronteiras técnicas |
+| [Referências de Mercado](docs/06-referencias-de-mercado.md) | Plataformas para análise comparativa |
+| [Arquitetura](docs/architecture/README.md) | Princípios e organização técnica |
+| [ADR Template](docs/adr/template.md) | Modelo de decisões arquiteturais |
 
 ## Princípios de engenharia
 
-- Separação de responsabilidades e baixo acoplamento.
-- Código legível, testável e documentado.
-- Segurança e privacidade desde o desenho.
-- API consistente e documentada.
-- Testes automatizados para regras e fluxos críticos.
-- Integrações resilientes e observáveis.
-- Decisões técnicas registradas e justificadas.
-- Evolução incremental baseada em validação.
+- Resolver primeiro um problema operacional real.
+- Separar Website, Studio e Client por responsabilidade.
+- Manter regras de negócio no backend e módulos coesos.
+- Proteger dados pessoais, contratos, finanças e imagens.
+- Testar regras e fluxos críticos.
+- Documentar API, instalação, operação e decisões.
+- Não implementar complexidade SaaS antes de validar a necessidade.
+- Manter o status do README fiel ao que realmente está implementado.
 
-## Estado do projeto
+## Roadmap
 
-1. [x] Repositório inicial criado.
-2. [x] Documentação fundacional em elaboração.
-3. [ ] Validar processos e requisitos com usuários.
-4. [ ] Definir MVP e critérios de aceitação.
-5. [ ] Avaliar arquitetura e stack.
-6. [ ] Implementar a primeira fatia funcional.
-7. [ ] Automatizar testes e verificações de qualidade.
-8. [ ] Documentar API, implantação e operação.
+1. Descoberta dos processos da RN e revisão do ERP/site anterior.
+2. Requisitos, modelo de domínio e arquitetura.
+3. Backend e PhotoHub Studio.
+4. Website comercial integrado ao funil do Studio.
+5. Integrações e automações selecionadas.
+6. Portal do cliente e galerias.
+7. Qualidade, segurança, implantação e demonstração pública.
 
-## Contexto e propósito
+## Portfólio
 
-O PhotoHub também funciona como projeto de engenharia de software, permitindo demonstrar levantamento de requisitos, modelagem de domínio, decisões arquiteturais, desenvolvimento, testes, segurança, documentação e manutenção.
+O repositório é público e voltado também à avaliação técnica por recrutadores. Deve demonstrar levantamento de requisitos, modelagem, arquitetura, APIs, desenvolvimento frontend/backend, testes, segurança, documentação e evolução incremental.
 
-As necessidades do negócio orientam o produto; as práticas de engenharia orientam como ele será construído.
-
-## Contribuição e evolução
-
-Durante a fase inicial, mudanças de escopo e decisões relevantes devem ser registradas na documentação. Decisões arquiteturais importantes devem utilizar o modelo de [Architecture Decision Record](docs/adr/template.md).
+Screenshots e demonstrações serão adicionados quando existirem funcionalidades reais para apresentar.
