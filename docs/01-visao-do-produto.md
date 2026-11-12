@@ -1,98 +1,109 @@
 # Visão do Produto — PhotoHub
 
-- **Status:** versão inicial para validação
-- **Categoria:** plataforma de gestão para negócios de fotografia e audiovisual
+- **Status:** direção estratégica definida; requisitos em validação
+- **Produto inicial:** sistema de gestão para RN Foto & Mídia
 
-## 1. Resumo
+## 1. Resumo executivo
 
-O PhotoHub é uma proposta de plataforma para centralizar e organizar a operação de empresas e profissionais de fotografia e audiovisual. O produto pretende conectar as etapas do relacionamento com o cliente, planejamento dos trabalhos, execução dos serviços e entrega dos materiais.
+O PhotoHub é um ecossistema para organizar negócios de fotografia e audiovisual. Será construído primeiro para resolver necessidades reais da RN Foto & Mídia e, simultaneamente, servir como projeto público de portfólio e aprendizagem de engenharia de software.
 
-O projeto nasce de necessidades operacionais observadas em uma empresa real de fotografia e audiovisual. Essa origem oferece um contexto concreto para levantamento de requisitos, validação de fluxos e evolução incremental do produto.
+A visão contempla três aplicações conectadas por uma API: Website comercial, Studio de gestão interna e Client, portal privado para documentos e galerias. O Studio é o centro operacional e o primeiro produto a ser desenvolvido. O Website é uma interface comercial separada, integrada ao fluxo de leads. O Client é uma etapa futura.
 
-## 2. Problema
+## 2. Contexto e problema
 
-A operação de um negócio de fotografia pode envolver informações distribuídas entre conversas, planilhas, documentos, ferramentas de seleção de fotos, contratos, controles financeiros, agendas e outros serviços.
+A rotina de fotografia e audiovisual envolve captação, atendimento, orçamento, negociação, contratos, pagamentos, agenda, equipe, execução, pós-produção e entrega. Essas informações podem ficar distribuídas entre conversas, planilhas, documentos, sistemas próprios e ferramentas especializadas.
 
-Essa fragmentação pode provocar perda de contexto no atendimento, retrabalho, dificuldade para acompanhar trabalhos, informações divergentes, falta de visibilidade sobre pendências e dependência de tarefas manuais.
+O projeto parte da experiência operacional da RN e dos aprendizados do ERP/site anteriormente desenvolvido, que já contemplava contratos e gerenciamento de projetos. A descoberta deverá confirmar quais processos funcionam bem, quais apresentam gargalos e quais componentes podem ser reaproveitados.
 
-Esses pontos são hipóteses iniciais e deverão ser confirmados e priorizados durante a descoberta.
+## 3. Estratégia RN-first e distribuição futura
 
-## 3. Público-alvo
+A RN será a primeira usuária e ambiente de validação. A prioridade é entregar um fluxo utilizável, confiável e seguro para a operação real.
 
-**Público primário**
-- fotógrafos profissionais independentes;
-- empresas e estúdios de fotografia;
-- equipes de fotografia e produção audiovisual;
-- pequenos negócios que gerenciam ensaios e cobertura de eventos.
+O código e a arquitetura devem evitar acoplamentos que impeçam atender outras empresas futuramente. Entretanto, não haverá compromisso de lançar um SaaS no MVP.
 
-**Usuários internos potenciais**
-- atendimento/comercial;
-- fotógrafos e videomakers;
-- produção e edição;
-- administração/gestão.
+Ficam fora da primeira etapa: multi-tenancy completo, isolamento de várias empresas na mesma instalação, planos, assinaturas, cobrança recorrente, onboarding automatizado, painel de assinantes, suporte comercial e operação para terceiros. Uma eventual distribuição dependerá de validação de mercado, capacidade de suporte, custos, segurança, obrigações legais e viabilidade econômica.
 
-Os perfis, permissões e responsabilidades serão detalhados nos requisitos.
+## 4. Aplicações e responsabilidades
 
-## 4. Objetivos do produto
+### 4.1 PhotoHub Website
+- apresentar a empresa e suas frentes comerciais;
+- divulgar serviços, pacotes e portfólio;
+- receber contatos e solicitações de orçamento;
+- encaminhar solicitações ao funil comercial do Studio.
 
-1. Centralizar informações de clientes e oportunidades comerciais.
-2. Organizar serviços, eventos, ensaios e fluxos de trabalho.
-3. Dar visibilidade ao status de cada atendimento e produção.
-4. Reduzir tarefas repetitivas e retrabalho operacional.
-5. Permitir integração com ferramentas externas por meio de interfaces bem documentadas, quando tecnicamente viável.
-6. Manter histórico e rastreabilidade das principais ações.
-7. Oferecer uma experiência simples para equipes pequenas, sem impedir evolução futura.
+Não gerencia contratos, pagamentos ou projetos diretamente.
 
-## 5. Proposta de valor
+### 4.2 PhotoHub Studio
+- clientes, contatos e histórico;
+- leads, atendimento e oportunidades;
+- catálogo de serviços, pacotes e adicionais;
+- propostas, orçamentos e contratos;
+- trabalhos, projetos, tarefas e responsáveis;
+- agenda e planejamento;
+- financeiro operacional;
+- produção, status de mídia e entregas;
+- usuários, permissões, auditoria e relatórios.
 
-Uma visão operacional unificada do negócio: do primeiro contato com o cliente até a conclusão e entrega do serviço.
+### 4.3 PhotoHub Client
+- login e acesso privado;
+- leitura de contratos e documentos autorizados;
+- acompanhamento do serviço;
+- seleção e aprovação de imagens;
+- galerias privadas, downloads e entrega.
 
-O PhotoHub não deve ser apenas um cadastro de clientes. Seu diferencial pretendido é representar o fluxo real de trabalho de fotografia e audiovisual.
+O portal só será iniciado quando o fluxo interno e a API estiverem estáveis. Armazenamento e galeria próprios deverão ser comparados com integrações especializadas.
 
-## 6. Princípios do produto
+## 5. Público e usuários
 
-- **Foco no domínio:** funcionalidades devem refletir a rotina de negócios de fotografia.
-- **Simplicidade operacional:** reduzir etapas e duplicidade de informações.
-- **Rastreabilidade:** registrar mudanças relevantes e histórico de atendimento.
-- **Segurança e privacidade:** proteger dados pessoais, documentos e informações comerciais.
-- **Integração:** evitar dependência desnecessária de processos manuais.
-- **Evolução incremental:** validar cada etapa antes de ampliar o escopo.
-- **Manutenibilidade:** priorizar código compreensível, testável e documentado.
+**Usuários iniciais:** sócios e equipe da RN Foto & Mídia. Perfis a validar: administração, atendimento/comercial, fotografia e audiovisual, produção/edição e financeiro.
 
-## 7. Indicadores de sucesso a validar
+**Usuários externos futuros:** clientes que solicitam serviços e acessam documentos ou materiais entregues.
 
-- tempo necessário para registrar e acompanhar um atendimento;
-- percentual de trabalhos com status e próximos passos atualizados;
-- redução de informações duplicadas;
-- quantidade de tarefas manuais que podem ser automatizadas;
-- facilidade de localizar histórico, documentos e dados de um cliente;
-- adoção da plataforma pelos membros da equipe.
+## 6. Objetivos
 
-As metas quantitativas serão definidas após observar o processo atual.
+1. Centralizar informações de clientes e oportunidades.
+2. Representar o fluxo real de fotografia e audiovisual.
+3. Reduzir redigitação, retrabalho e perda de contexto.
+4. Relacionar contratos, pagamentos, projetos e entregas.
+5. Dar visibilidade a pendências, prazos e próximos passos.
+6. Separar experiência pública, gestão interna e portal privado.
+7. Construir API consistente para integrações e futuras aplicações.
+8. Demonstrar práticas profissionais de engenharia de software.
 
-## 8. Fora dos objetivos iniciais
+## 7. Indicadores de sucesso
 
-Até que exista validação específica, o PhotoHub não será tratado como:
-- editor de imagens ou vídeos;
-- ferramenta de armazenamento massivo de arquivos de mídia;
-- substituto obrigatório de todas as ferramentas especializadas já utilizadas;
-- plataforma pública de contratação de fotógrafos;
-- sistema financeiro ou contábil completo.
+- Um lead pode ser acompanhado até a contratação.
+- Um trabalho contratado possui cliente, serviço, contrato, valores, agenda e responsáveis relacionados.
+- A equipe localiza histórico, documentos e situação de cada trabalho.
+- Prazos, pendências e entregas são acompanhados no Studio.
+- Dados e documentos só são acessíveis a usuários autorizados.
+- Fluxos críticos possuem testes automatizados.
+- A RN consegue realizar um piloto sem processos paralelos para funções já migradas.
 
-## 9. Premissas e pontos em aberto
+Metas quantitativas serão definidas após observar a operação.
 
-| Tema | Situação |
-|---|---|
-| Segmento inicial | Fotografia e audiovisual |
-| Contexto de validação | Operação de um negócio real |
-| Modelo de implantação | A definir |
-| Tecnologias | A definir após requisitos e avaliação técnica |
-| Integrações externas | Objetivo do produto; provedores a avaliar |
-| Modelo de cobrança | A definir |
-| Multiempresa (multi-tenant) | A avaliar |
-| Aplicação mobile | A avaliar |
-| Público inicial | Pequenos negócios e equipes de fotografia |
+## 8. Princípios
+
+- Domínio antes da tecnologia.
+- Operação simples e sem duplicidade.
+- Separação de responsabilidades entre as aplicações.
+- Rastreabilidade de alterações relevantes.
+- Segurança e privacidade desde o desenho.
+- Evolução incremental validada pela RN.
+- Código compreensível, testável e documentado.
+- Distribuição opcional, sem antecipar a complexidade SaaS.
+
+## 9. Fora do escopo inicial
+
+- SaaS comercial com cobrança recorrente;
+- marketplace;
+- editor de fotos ou vídeos;
+- hospedagem massiva e processamento de mídia;
+- contabilidade e obrigações fiscais;
+- aplicativo mobile nativo;
+- microserviços sem necessidade comprovada;
+- portal completo e galeria própria no primeiro MVP.
 
 ## 10. Próxima revisão
 
-Esta visão deverá ser revisada após o levantamento dos processos reais, entrevistas com usuários e priorização dos requisitos.
+Revisar após inventariar o ERP/site anterior, mapear os fluxos da RN por modalidade, levantar contratos e catálogo de serviços e validar os critérios de aceite do MVP.
