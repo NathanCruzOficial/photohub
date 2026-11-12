@@ -1,140 +1,128 @@
 # Escopo e Requisitos — PhotoHub
 
-- **Status:** rascunho inicial
+- **Status:** escopo preliminar para validação com a RN
 - **Referência:** [Visão do Produto](./01-visao-do-produto.md)
 
-## 1. Objetivo
+## 1. Estratégia de escopo
 
-Definir a primeira fronteira funcional do PhotoHub e registrar requisitos candidatos. Este documento orienta a descoberta e não representa funcionalidades já implementadas.
+O PhotoHub será desenvolvido primeiro para uso interno da RN Foto & Mídia. O MVP prioriza o **PhotoHub Studio** e um fluxo operacional completo. O Website comercial será uma aplicação separada, integrada ao Studio. O portal Client e galerias ficam para fase posterior.
 
-## 2. Escopo candidato do produto
+Prioridades: **P0** indispensável ao fluxo principal; **P1** necessário para completar a primeira operação útil; **P2** evolução após validação; **Futuro** não bloqueia o MVP.
 
-### 2.1 Gestão de clientes e contatos
-- cadastro e consulta de clientes;
-- múltiplos meios de contato;
-- histórico de interações;
-- associação entre clientes, oportunidades e trabalhos.
+## 2. PhotoHub Studio — gestão interna
 
-### 2.2 Gestão comercial
-- registro de oportunidades/solicitações;
-- acompanhamento de etapas do atendimento;
-- registro de serviços de interesse;
-- elaboração e acompanhamento de propostas/orçamentos;
-- conversão de oportunidade em trabalho confirmado.
+### 2.1 Clientes e contatos — P0
+Cadastro, consulta, atualização e inativação; múltiplos contatos; histórico; associação com leads, propostas, contratos e trabalhos; busca e prevenção de duplicidade.
 
-### 2.3 Serviços e eventos
-- cadastro de categorias e tipos de serviço;
-- criação de ensaios, eventos e produções;
-- registro de data, local, duração e observações;
-- associação de equipe e responsáveis;
-- controle de status e pendências.
+### 2.2 Comercial — P0
+Registro de leads e origem; modalidade de interesse; dados preliminares; etapas de atendimento; histórico e próximos passos; propostas e orçamentos; conversão em trabalho sem redigitação.
 
-### 2.4 Documentos e contratos
-- associação de documentos ao cliente e ao trabalho;
-- controle de situação de contratos;
-- registro de datas importantes;
-- histórico de alterações relevantes.
+### 2.3 Catálogo de serviços — P0/P1
+Categorias e modalidades de fotografia/audiovisual; pacotes, itens, adicionais e condições; duração, entregáveis, prazos e deslocamento; preços configuráveis e histórico das condições apresentadas.
 
-A geração, assinatura eletrônica e armazenamento de documentos deverão ser avaliados separadamente.
+### 2.4 Contratos e documentos — P1
+Modelos e dados variáveis; documentos relacionados a cliente, proposta e trabalho; controle de versão, status e datas; registro de assinatura e referência ao arquivo; trilha de alterações. Geração de PDF e assinatura eletrônica serão detalhadas separadamente.
 
-### 2.5 Financeiro operacional
-- registro de valores acordados;
-- controle de pagamentos previstos e recebidos;
-- acompanhamento de parcelas e pendências;
-- visão resumida por cliente e trabalho.
+### 2.5 Trabalhos, projetos e tarefas — P0/P1
+Criação de trabalho a partir de proposta aceita; etapas por modalidade; tarefas, responsáveis, prazos e observações; documentos, pagamentos e entregáveis relacionados; histórico.
 
-O módulo não tem como objetivo substituir contabilidade, emissão fiscal ou um sistema financeiro completo.
+### 2.6 Agenda e equipe — P1
+Datas, horários e locais; responsáveis e participantes; disponibilidade e conflitos; reagendamento e cancelamento.
 
-### 2.6 Produção e entrega
-- acompanhamento das etapas de produção;
-- registro de seleção, edição e revisão;
-- controle de prazo e situação da entrega;
-- registro de links ou referências para materiais entregues;
-- histórico de conclusão do trabalho.
+### 2.7 Financeiro operacional — P1
+Valores acordados; parcelas e vencimentos; pagamentos e pendências; resumo por cliente e trabalho. Não substitui contabilidade ou sistema financeiro completo.
 
-O armazenamento dos arquivos originais e finais não está incluído no escopo inicial.
+### 2.8 Produção e entrega — P1
+Etapas de seleção, edição, revisão e aprovação; prazos e responsáveis; links e referências externas; histórico e confirmação de entrega. No MVP, o sistema controla metadados e status, não armazenamento massivo de fotos.
 
-### 2.7 Integrações e automações
-- API documentada para operações do domínio;
-- possibilidade de integração com ferramentas externas;
-- mecanismos de autenticação e autorização para integrações;
-- registro de falhas e rastreabilidade de operações;
-- automações para reduzir tarefas repetitivas.
+## 3. PhotoHub Website — comercial público
 
-Os provedores e integrações prioritários ainda precisam ser levantados. Nenhuma integração deve ser considerada garantida antes da análise de API, custos, limites e termos do fornecedor.
+- páginas institucionais e apresentação das frentes da RN;
+- páginas de serviços, pacotes e portfólio;
+- formulário de contato e solicitação de orçamento;
+- campos condicionais por modalidade;
+- validação, proteção contra spam e registro de consentimento;
+- integração dos formulários à API para criar leads no Studio;
+- conteúdo público sem exposição de contratos, dados privados ou galerias protegidas.
 
-## 3. Priorização inicial
+O Website não deve implementar um segundo CRM nem duplicar regras comerciais do Studio.
 
-| Prioridade | Área | Justificativa |
-|---|---|---|
-| P0 | Clientes e contatos | Base dos relacionamentos |
-| P0 | Oportunidades e atendimento | Entrada do fluxo comercial |
-| P0 | Serviços e trabalhos | Representa a operação principal |
-| P1 | Agenda e equipe | Planejamento da execução |
-| P1 | Propostas e contratos | Formalização comercial |
-| P1 | Pagamentos | Controle operacional |
-| P1 | Produção e entrega | Acompanhamento ponta a ponta |
-| P2 | API e integrações | Expansão e automação |
-| P2 | Relatórios e indicadores | Gestão e tomada de decisão |
+## 4. PhotoHub Client — futuro
 
-A prioridade é provisória e deverá ser confirmada com usuários.
+- autenticação e recuperação de acesso;
+- acesso restrito por cliente e trabalho;
+- consulta de contratos e documentos;
+- acompanhamento de etapas e pagamentos autorizados;
+- galerias privadas;
+- favoritos, seleção e aprovação de imagens;
+- downloads e entrega final;
+- notificações e histórico de comunicação.
 
-## 4. Requisitos funcionais candidatos
+Armazenamento, segurança de links, thumbnails, custos de tráfego e integrações serão decididos antes dessa fase.
 
-- **RF-001:** O sistema deve permitir cadastrar, consultar, atualizar e inativar clientes.
-- **RF-002:** O sistema deve permitir registrar contatos e histórico de interações.
-- **RF-003:** O sistema deve permitir registrar oportunidades comerciais.
-- **RF-004:** O sistema deve permitir acompanhar a etapa de cada oportunidade.
-- **RF-005:** O sistema deve permitir cadastrar tipos de serviço.
-- **RF-006:** O sistema deve permitir criar trabalhos associados a clientes.
-- **RF-007:** O sistema deve permitir registrar data, local e observações de um trabalho.
-- **RF-008:** O sistema deve permitir acompanhar o status de execução de um trabalho.
-- **RF-009:** O sistema deve permitir associar documentos a clientes e trabalhos.
-- **RF-010:** O sistema deve permitir registrar valores acordados e pagamentos.
-- **RF-011:** O sistema deve permitir acompanhar etapas de produção e entrega.
-- **RF-012:** O sistema deve manter histórico de alterações relevantes.
-- **RF-013:** O sistema deve expor operações selecionadas por uma API documentada.
-- **RF-014:** O sistema deve permitir controlar acesso conforme usuário e permissões.
-- **RF-015:** O sistema deve permitir consultar pendências e próximos passos.
+## 5. Requisitos funcionais candidatos
 
-## 5. Requisitos não funcionais candidatos
+- **RF-001:** Studio permite cadastrar e consultar clientes.
+- **RF-002:** Studio mantém contatos e histórico de interações.
+- **RF-003:** Studio registra leads e sua origem.
+- **RF-004:** Studio acompanha etapas de atendimento e negociação.
+- **RF-005:** Studio mantém catálogo de serviços, pacotes e adicionais.
+- **RF-006:** Studio registra propostas vinculadas a clientes e serviços.
+- **RF-007:** Studio converte propostas aceitas em trabalhos.
+- **RF-008:** Studio relaciona contratos e documentos aos trabalhos.
+- **RF-009:** Studio controla etapas, tarefas, responsáveis e prazos.
+- **RF-010:** Studio registra datas, locais e participantes.
+- **RF-011:** Studio registra valores, parcelas e pagamentos.
+- **RF-012:** Studio acompanha produção e entrega.
+- **RF-013:** Website apresenta serviços e portfólio público.
+- **RF-014:** Website recebe solicitações e encaminha ao funil comercial.
+- **RF-015:** Sistema mantém histórico de alterações relevantes.
+- **RF-016:** Backend expõe operações por API documentada.
+- **RF-017:** Sistema aplica autenticação e autorização no servidor.
+- **RF-018:** Sistema permite consultar pendências e próximos passos.
 
-- **RNF-001 — Segurança:** credenciais e segredos não devem ser armazenados em texto puro.
-- **RNF-002 — Autorização:** operações devem verificar as permissões do usuário no servidor.
-- **RNF-003 — Privacidade:** dados pessoais devem ser tratados com finalidade e acesso apropriados, observando a LGPD.
-- **RNF-004 — Integridade:** operações críticas devem preservar consistência dos dados.
-- **RNF-005 — Auditoria:** ações relevantes devem permitir identificar o que ocorreu e quando.
-- **RNF-006 — Manutenibilidade:** código organizado por responsabilidades e acompanhado de testes.
-- **RNF-007 — Documentação:** API e decisões arquiteturais devem possuir documentação versionada.
-- **RNF-008 — Observabilidade:** erros relevantes devem ser registrados sem expor dados sensíveis.
-- **RNF-009 — Desempenho:** metas de resposta deverão ser definidas a partir dos cenários de uso.
-- **RNF-010 — Disponibilidade e recuperação:** estratégia de backup e recuperação deverá ser definida antes de uso operacional.
+Requisitos do Client serão especificados quando a fase for iniciada.
 
-## 6. Regras e decisões ainda pendentes
+## 6. Requisitos não funcionais
 
-1. Uma pessoa pode ser cliente em vários trabalhos?
-2. Um trabalho pode incluir mais de um serviço?
-3. Como representar eventos com múltiplas datas ou etapas?
-4. Como tratar cancelamentos, reagendamentos e reembolsos?
-5. Quais usuários podem visualizar dados financeiros?
-6. A plataforma atenderá uma empresa por instalação ou várias empresas na mesma instância?
-7. Quais ferramentas externas precisam ser integradas primeiro?
-8. Quais dados e documentos precisam de trilha de auditoria?
+- **RNF-001 Segurança:** segredos não podem ser armazenados no repositório.
+- **RNF-002 Autorização:** operações protegidas validam permissões no backend.
+- **RNF-003 Privacidade:** dados pessoais são tratados com finalidade e acesso apropriados, observando a LGPD.
+- **RNF-004 Integridade:** transações críticas preservam consistência.
+- **RNF-005 Auditoria:** ações relevantes registram ator, data e alteração.
+- **RNF-006 Manutenibilidade:** módulos coesos, responsabilidades claras e testes.
+- **RNF-007 Documentação:** API, instalação, operação e decisões são versionadas.
+- **RNF-008 Observabilidade:** erros são rastreáveis sem expor segredos ou dados desnecessários.
+- **RNF-009 Desempenho:** metas serão definidas a partir de cenários reais.
+- **RNF-010 Recuperação:** backups e restauração devem ser testados antes do uso operacional.
 
-## 7. Critérios para considerar um requisito pronto
+## 7. Critérios de aceite do fluxo principal
 
-Um requisito deverá possuir identificador único, descrição objetiva, justificativa de negócio, prioridade, critérios de aceitação verificáveis, dependências e regras de negócio conhecidas.
+1. Receber ou cadastrar um lead.
+2. Localizar ou cadastrar o cliente.
+3. Registrar serviço de interesse e dados do evento.
+4. Preparar proposta/orçamento.
+5. Formalizar contrato e registrar sua situação.
+6. Criar trabalho com tarefas, prazos e responsáveis.
+7. Registrar valores e pagamentos.
+8. Acompanhar produção.
+9. Registrar entrega e encerramento.
 
-## 8. Fora do escopo da primeira entrega
+## 8. Fora do escopo do MVP
 
-- edição de fotos e vídeos;
-- hospedagem própria de grandes bibliotecas de mídia;
-- contabilidade e obrigações fiscais;
-- marketplace público;
-- automações sem controle de permissão, histórico e tratamento de falhas.
+Multi-tenancy completo; planos e billing SaaS; gestão de assinantes; onboarding comercial de terceiros; marketplace; edição de fotos/vídeos; hospedagem massiva de mídia; galeria avançada própria; contabilidade e emissão fiscal; automações sem controle de permissão e auditoria; microserviços sem necessidade demonstrada.
 
-## 9. Histórico
+## 9. Questões para validação
 
-| Versão | Alteração |
-|---|---|
-| 0.1 | Primeira versão dos requisitos candidatos |
+1. Quais funcionalidades do ERP/site anterior estão maduras e podem ser reaproveitadas?
+2. Quais etapas mudam entre ensaios, eventos, casamentos e audiovisual?
+3. Quais dados são obrigatórios para cada orçamento?
+4. Quais modelos de contrato e regras de pagamento existem por serviço?
+5. Como tratar reagendamentos, cancelamentos, reembolsos e alterações de escopo?
+6. Quais perfis podem visualizar dados financeiros e documentos?
+7. Qual ferramenta de galeria/seleção será usada inicialmente?
+8. Quais integrações realmente economizam trabalho para a RN?
+
+## 10. Definição de pronto
+
+Cada requisito deve ter ator, justificativa, prioridade, regra de negócio, critérios de aceitação, dependências e cenários de erro. Uma funcionalidade só será concluída quando tiver validação, autorização, testes pertinentes e documentação atualizada.
